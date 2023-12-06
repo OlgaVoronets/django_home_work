@@ -7,6 +7,7 @@ class Category(models.Model):
     name = models.CharField(max_length=100, verbose_name='Категория')
     description = models.TextField(**NULLABLE, verbose_name='Описание')
 
+
     def __str__(self):
         return f'{self.name}'
 
@@ -17,11 +18,11 @@ class Category(models.Model):
 
 class Product(models.Model):
     name = models.CharField(max_length=250, verbose_name='Наименование')
-    describtion = models.TextField(verbose_name='Описание', **NULLABLE)
+    description = models.TextField(verbose_name='Описание', **NULLABLE)
     preview = models.ImageField(upload_to='catalog/', verbose_name='Изображение', **NULLABLE)
-    category = models.CharField(max_length=100, verbose_name='Категория')
+    category = models.ForeignKey(Category, on_delete=models.CASCADE, verbose_name='Категория', **NULLABLE)
     price = models.IntegerField(verbose_name='Цена за единицу')
-    create_at = models.DateField(verbose_name='Дата создания', **NULLABLE)
+    created_at = models.DateField(verbose_name='Дата создания', **NULLABLE)
     last_changed_at = models.DateField(verbose_name='Последнее изменение', **NULLABLE)
 
     def __str__(self):

@@ -1,8 +1,6 @@
 
 from django.core.management import BaseCommand
 from django.db import connection
-from django.db.models.functions import datetime
-
 from catalog.models import Category, Product
 
 
@@ -35,7 +33,7 @@ class Command(BaseCommand):
             {'name': 'Яблоки', 'description': 'ГренниСмит, 1 кг', 'preview': '', 'category': fruit, 'price': 150},
             {'name': 'Апельсины', 'description': 'Сочные, 1 кг', 'preview': '', 'category': fruit, 'price': 150},
             {'name': 'Помидоры', 'description': 'Фламенко, 1 кг', 'preview': '', 'category': vegetable, 'price': 300},
-            {'name': 'Огурцы', 'description': 'Колючие короткоплодные, 1 кг', 'preview': '', 'category': vegetable,'price': 200},
+            {'name': 'Огурцы', 'description': 'Колючие короткоплодные, 1 кг', 'preview': '', 'category': vegetable, 'price': 200},
             {'name': 'Вода', 'description': 'Газированая, 1 шт', 'preview': '', 'category': drink, 'price': 40},
             {'name': 'Сок', 'description': 'Вишневый 1 шт', 'preview': '', 'category': drink, 'price': 150},
             {'name': 'Печенье', 'description': 'Овсяное с изюмом, 1 уп', 'preview': '', 'category': grocery, 'price': 100},

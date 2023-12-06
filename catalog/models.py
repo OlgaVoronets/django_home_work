@@ -1,3 +1,10 @@
 from django.db import models
 
-# Create your models here.
+NULLABLE = {'blank': True, 'null': True}
+
+class Category(models.Model):
+    pass
+
+
+class Product(models.Model):
+    pass

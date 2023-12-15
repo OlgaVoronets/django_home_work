@@ -1,5 +1,5 @@
 from catalog.models import Product
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 
 
 def home(request):
@@ -23,9 +23,10 @@ def contacts(request):
 
 
 def item(request, pk):
-    # object = Product.objects.get(pk=pk).__dict__
+
+    product = get_object_or_404(Product, pk=pk)
     context = {
-        'object': Product.objects.get(pk=pk).__dict__,
+        'object': product,
         'title': "Карточка продукта",
 
     }

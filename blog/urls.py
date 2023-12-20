@@ -1,12 +1,15 @@
 from django.urls import path
 
 from blog.apps import BlogConfig
+from blog.views import PostListView, PostDetailView, PostCreateView, PostUpdateView, PostDeleteView, published_toggle
 
-app_name = BlogConfig
+app_name = BlogConfig.name
 
 urlpatterns = [
-    # path('', ProductListView.as_view(), name='home'),
-    # path('contacts/', contacts, name='contacts'),
-    # path('<int:pk>/view_product/', ProductDetailView.as_view(), name='view_product'),
-    # path('<int:pk>/product/', product, name='product'),
+    path('', PostListView.as_view(), name='post_list'),
+    path('view/<int:pk>/', PostDetailView.as_view(), name='post_view'),
+    path('create/', PostCreateView.as_view(), name='post_create'),
+    path('edit/<int:pk>/', PostUpdateView.as_view(), name='post_edit'),
+    path('delete/<int:pk>/', PostDeleteView.as_view(), name='post_delete'),
+    path('published/<int:pk>', published_toggle, name='published_toggle'),
 ]

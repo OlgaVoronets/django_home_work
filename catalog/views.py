@@ -1,5 +1,7 @@
-from django.views.generic import ListView, DetailView
+from django.urls import reverse_lazy
+from django.views.generic import ListView, DetailView, CreateView, UpdateView
 
+from catalog.forms import ProductForm
 from catalog.models import Product
 from django.shortcuts import render, get_object_or_404
 
@@ -28,3 +30,15 @@ class ProductDetailView(DetailView):
     extra_context = {
         'title': "Карточка продукта",
     }
+
+
+class ProductCreateView(CreateView):
+    model = Product
+    form_class = ProductForm
+    success_url = reverse_lazy('catalog:home')
+
+
+class ProductUpdateView(UpdateView):
+    model = Product
+    form_class = ProductForm
+    success_url = reverse_lazy('catalog:home')

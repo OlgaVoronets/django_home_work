@@ -1,6 +1,6 @@
 from django import forms
 
-from catalog.models import Product
+from catalog.models import Product, Version
 
 
 class StileFormMixin:
@@ -30,3 +30,9 @@ class ProductForm(StileFormMixin, forms.ModelForm):
             if word in cleaned_description:
                 raise forms.ValidationError(f'В описании продукта не должно быть слова {word}')
         return cleaned_description
+
+
+class VersionForm(StileFormMixin, forms.ModelForm):
+    class Meta:
+        model = Version
+        fields = '__all__'

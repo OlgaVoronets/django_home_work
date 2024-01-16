@@ -1,12 +1,11 @@
 from django.conf import settings
 from django.forms import inlineformset_factory
-from django.urls import reverse_lazy
+from django.urls import reverse_lazy, reverse
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 
 from catalog.forms import ProductForm, VersionForm
 from catalog.models import Product, Version
-from django.shortcuts import render, get_object_or_404
-
+from django.shortcuts import render, get_object_or_404, redirect
 
 
 class ProductListView(ListView):
@@ -54,11 +53,11 @@ class ProductUpdateView(UpdateView):
 
     def get_context_data(self, **kwargs):
         context_data = super().get_context_data(**kwargs)
-        SubjectFormset = inlineformset_factory(Product, Version, form=VersionForm, extra=1)
+        version_formset = inlineformset_factory(Product, Version, form=VersionForm, extra=1)
         if self.request.method == 'POST':
-            context_data['formset'] = SubjectFormset(self.request.POST, instance=self.object)
+            context_data['formset'] = version_formset(self.request.POST, instance=self.object)
         else:
-            context_data['formset'] = SubjectFormset(instance=self.object)
+            context_data['formset'] = version_formset(instance=self.object)
         return context_data
 
     def form_valid(self, form):
@@ -73,3 +72,13 @@ class ProductUpdateView(UpdateView):
 class ProductDeleteView(DeleteView):
     model = Product
     success_url = reverse_lazy('catalog:home')
+
+
+def published_toggle(request, pk):
+    prod_item = get_object_or_404(Product, pk=pk)
+    if prod_item.is_published:
+        prod_item.is_published = False
+    else:
+        prod_item.is_published = True
+    prod_item.save()
+    return redirect(reverse('catalog:home'))

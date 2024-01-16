@@ -34,12 +34,15 @@ class Product(models.Model):
 
     @property
     def active_version(self):
-        return Version.objects.filter(is_active=True, product_id=self.id).first()
+        return Version.objects.filter(is_active=True, product_id=self.pk).first()
 
     class Meta:
         verbose_name = 'Продукт'
         verbose_name_plural = 'Продукты'
         ordering = ('category', 'name',)
+        permissions = [
+            ('set_is_published','Изменить статус продукта'),
+        ]
 
 
 class Version(models.Model):

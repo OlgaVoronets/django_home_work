@@ -21,6 +21,23 @@ class CategoryListView(ListView):
     }
 
 
+# class ProductByCategoryView(ListView):
+#     model = Product
+#
+#     def get_queryset(self):
+#         queryset = super().get_queryset()
+#         queryset = queryset.filter(category_id=self.kwargs.get('category.id'))
+#         return queryset
+#
+#     def get_context_data(self, *args, **kwargs):
+#         context_data = super().get_context_data(*args, **kwargs)
+#         category_item = Category.objects.get(pk=self.kwargs.get('pk'))
+#         context_data['category_pk'] = category_item.pk
+#         context_data['title'] = f'Продукты категории {category_item.name}'
+#         return context_data
+
+
+
 class ProductListView(ListView):
     model = Product
     extra_context = {

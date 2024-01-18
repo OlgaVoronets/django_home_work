@@ -4,7 +4,7 @@ from catalog.apps import CatalogConfig
 from django.urls import path
 
 from catalog.views import ProductListView, contacts, ProductDetailView, ProductCreateView, ProductUpdateView, \
-    ProductDeleteView, published_toggle, CategoryListView, ProductByCategoryView
+    ProductDeleteView, published_toggle, CategoryListView
 
 app_name = CatalogConfig.name
 

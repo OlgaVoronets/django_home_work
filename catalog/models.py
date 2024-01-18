@@ -27,18 +27,22 @@ class Product(models.Model):
     created_at = models.DateField(verbose_name='Дата создания', auto_now_add=True, **NULLABLE)
     last_changed_at = models.DateField(verbose_name='Последнее изменение', auto_now=True, **NULLABLE)
     owner = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, verbose_name='Владелец', **NULLABLE)
+    is_published = models.BooleanField(default=False, verbose_name='Опубликовано')
 
     def __str__(self):
         return f'{self.name} ({self.category})'
 
     @property
     def active_version(self):
-        return Version.objects.filter(is_active=True, product_id=self.id).first()
+        return Version.objects.filter(is_active=True, product_id=self.pk).first()
 
     class Meta:
         verbose_name = 'Продукт'
         verbose_name_plural = 'Продукты'
         ordering = ('category', 'name',)
+        permissions = [
+            ('set_is_published','Изменить статус продукта'),
+        ]
 
 
 class Version(models.Model):

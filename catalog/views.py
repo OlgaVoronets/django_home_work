@@ -7,8 +7,18 @@ from django.urls import reverse_lazy, reverse
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 
 from catalog.forms import ProductForm, VersionForm
-from catalog.models import Product, Version
+from catalog.models import Product, Version, Category
 from django.shortcuts import render, get_object_or_404, redirect
+
+from catalog.services import get_cached_category_list
+
+
+class CategoryListView(ListView):
+    model = Category
+    extra_context = {
+        'object_list': get_cached_category_list(),
+        'title': 'Категории товаров',
+    }
 
 
 class ProductListView(ListView):

@@ -150,7 +150,7 @@ EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
 EMAIL_USE_SSL = True
 
 
-CACHE_ENABLED = os.getenv('CACHE_ENABLED') == 'True'
+CACHE_ENABLED = os.getenv('CACHE_ENABLED').lower() in ('true', 'yes', 'y', '1')
 
 if CACHE_ENABLED:
     CACHES = {
